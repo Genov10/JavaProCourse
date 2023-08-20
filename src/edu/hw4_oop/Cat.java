@@ -2,13 +2,10 @@ package edu.hw4_oop;
 
 public class Cat extends Animal{
     private final int RUN_LIMIT = 150;
-    private int catCounter;
 
-    public Cat() {
-        catCounter++;
-    }
-    public Cat(String name, String color) {
+    public Cat(Counter catCounter, String name, String color) {
         super(name, color);
+        catCounter.catAdd();
     }
 
     @Override
@@ -31,11 +28,4 @@ public class Cat extends Animal{
         System.out.println(name + " is a cat, it cannot swim");
     }
 
-    public int getCatCounter() {
-        return catCounter;
-    }
-
-    public void setCatCounter(int catCounter) {
-        this.catCounter = catCounter;
-    }
 }

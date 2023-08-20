@@ -3,12 +3,9 @@ package edu.hw4_oop;
 public class Dog extends Animal{
     private final int RUN_LIMIT = 200;
     private final int SWIM_LIMIT = 10;
-    private int dogCounter;
-    public Dog() {
-        dogCounter++;
-    }
-    public Dog(String name, String color) {
+    public Dog(Counter counter,String name, String color) {
         super(name, color);
+        counter.dogAdd();
     }
 
 
@@ -42,11 +39,4 @@ public class Dog extends Animal{
         showDistance(runDistance, swimDistance, completeDistance);
     }
 
-    public int getDogCounter() {
-        return dogCounter;
-    }
-
-    public void setDogCounter(int dogCounter) {
-        this.dogCounter = dogCounter;
-    }
 }

@@ -10,11 +10,12 @@ public class Animal {
     protected int swimDistance;
     protected int completeDistance;
     Scanner scanner = new Scanner(System.in);
-    private static int animalCounter;
-    public Animal() {
-        animalCounter++;
-    }
 
+    public Animal(Counter counter, String name, String color) {
+        this.name = name;
+        this.color = color;
+        counter.animalAdd();
+    }
     public Animal(String name, String color) {
         this.name = name;
         this.color = color;
@@ -58,11 +59,4 @@ public class Animal {
         this.color = color;
     }
 
-    public static int getAnimalCounter() {
-        return animalCounter;
-    }
-
-    public static void setAnimalCounter(int animalCounter) {
-        Animal.animalCounter = animalCounter;
-    }
 }
