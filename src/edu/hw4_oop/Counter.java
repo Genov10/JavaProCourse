@@ -3,13 +3,11 @@ public class Counter {
     private int animalCount;
     private int catCount;
     private int dogCount;
-    private int totalCount;
 
     public Counter() {
         dogCount=0;
         animalCount=0;
         catCount=0;
-        totalCount = 0;
     }
 
     public void animalAdd(){
@@ -24,9 +22,6 @@ public class Counter {
         ++catCount;
     }
 
-    public void totalAdd(){
-        totalCount = catCount + dogCount + animalCount;
-    }
 
     public int getAnimalsCount() {
         return animalCount;
@@ -53,10 +48,8 @@ public class Counter {
     }
 
     public int getTotalCount() {
-        return totalCount;
+        return animalCount + catCount + dogCount;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
+
 }
