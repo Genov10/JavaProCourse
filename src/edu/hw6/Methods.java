@@ -1,6 +1,7 @@
 package edu.hw6;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Methods {
 //2
@@ -79,15 +80,12 @@ public class Methods {
         }
     }
     //10
-    public static void leapYear() {
-        int[] years = {100, 400, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030};
-        System.out.println("----------------------");
-        for (int i = 0; i < years.length; i++) {
-            if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
-                System.out.println(years[i] + " is leap");
+    public static void leapYear(int year) {
+        System.out.println("-----------------------------");
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                System.out.println(year + " is leap");
             } else {
-                System.out.println(years[i] + " is not leap");
+                System.out.println(year + " is not leap");
             }
-        }
     }
 }

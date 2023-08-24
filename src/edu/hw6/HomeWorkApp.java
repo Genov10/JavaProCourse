@@ -1,6 +1,7 @@
 package edu.hw6;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class HomeWorkApp {
     public static void main(String[] args) {
@@ -30,6 +31,9 @@ public class HomeWorkApp {
         String message = "Message";
         method.printMessage(message, a);
 
-        method.leapYear();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a year: ");
+        int year = scanner.nextInt();
+        method.leapYear(year);
     }
 }
