@@ -31,9 +31,9 @@ public class HomeWorkApp {
         String message = "Message";
         method.printMessage(message, a);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a year: ");
-        int year = scanner.nextInt();
-        method.leapYear(year);
+        int[] years = {
+                100, 400, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029,2030
+        };
+        method.leapYear(years);
     }
 }
