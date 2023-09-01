@@ -1,4 +1,4 @@
-package edu.hw7;
+package edu.hw7_String;
 
 import java.util.Random;
 import java.util.Scanner;

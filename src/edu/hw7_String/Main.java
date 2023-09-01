@@ -1,4 +1,4 @@
-package edu.hw7;
+package edu.hw7_String;
 
 public class Main {
     public static void main(String[] args) {
