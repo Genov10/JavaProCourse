@@ -11,7 +11,7 @@ public class Main {
         String word1 = "abc";
         String word2 = "tenet";
         methods.findSymbolOccurance(speech, symbol);
-        methods.findWordPosition(speech, target1);
+        Methods.findWordPosition(speech, target1);
         methods.findWordPosition(speech, target2);
         Methods.reversedString(speech);
         Methods.isPalendrom(word1);
