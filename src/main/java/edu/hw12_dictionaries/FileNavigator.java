@@ -13,8 +13,7 @@ public class FileNavigator {
         this.storage = new HashMap<>();
     }
     public void add(FileData fileData, String path) throws UnavailablePath, FileAlreadyExist {
-        final String PATH = fileData.getPATH();
-        final String NAME = fileData.getNAME();
+        String PATH = fileData.getPATH();
         if (path.equals(PATH)) {
             throw new UnavailablePath("Unavalible path for file");
         }
@@ -54,11 +53,9 @@ public class FileNavigator {
         List<FileData> selectedFiles = new ArrayList<>();
         if(!storage.isEmpty()) {
             for (List<FileData> fileDataList : storage.values()) {
-                if (!storage.isEmpty()) {
-                    for (FileData fileData : fileDataList) {
-                        if(fileData.getSIZE() <= maxSize) {
-                            selectedFiles.add(fileData);
-                        }
+                for (FileData fileData : fileDataList) {
+                    if(fileData.getSIZE() <= maxSize) {
+                        selectedFiles.add(fileData);
                     }
                 }
             }
@@ -68,15 +65,13 @@ public class FileNavigator {
 
     public List<FileData> sortBySize () {
         List<FileData> sortedList = new ArrayList<>();
-        if(!storage.isEmpty()) {
-            for (List<FileData> fileDataList : storage.values()) {
-                if (!fileDataList.isEmpty()) {
-                    sortedList.addAll(fileDataList);
-                }
+        for (List<FileData> fileDataList : storage.values()) {
+            if (!fileDataList.isEmpty()) {
+                sortedList.addAll(fileDataList);
             }
-            if (sortedList.size() > 1) {
-                sortedList.sort(Comparator.comparingInt(FileData::getSIZE));
-            }
+        }
+        if (sortedList.size() > 1) {
+            sortedList.sort(Comparator.comparingInt(FileData::getSIZE));
         }
         return sortedList;
     }
