@@ -1,52 +1,62 @@
 package edu.hw16_multithreading.ex2;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+
+import com.google.common.util.concurrent.AtomicDouble;
 
 public class PetrolStation {
     private static final int AMOUNT_GASOLINE_STATION = 3;
-    private volatile double amount;
-    private final Thread[] threads;
-    private final Lock lock;
+    private AtomicDouble amount;
+
+    private final ExecutorService executor;
 
     public PetrolStation(double initialFuelAmount) {
-        this.amount = initialFuelAmount;
-        this.threads = new Thread[AMOUNT_GASOLINE_STATION];
-        this.lock = new ReentrantLock();
+        ThreadFactory threadFactory = new ThreadFactory() {
+            private int gasolineNum = 1;
+            public Thread newThread( Runnable r) {
+                return new Thread(r, "GasolineThread-" + gasolineNum++);
+            }
+        };
+        this.amount = new AtomicDouble(initialFuelAmount);
+        this.executor = Executors.newFixedThreadPool(AMOUNT_GASOLINE_STATION, threadFactory);
     }
 
     public void addAmount(double amount) {
-        this.amount += amount;
+        this.amount.addAndGet(amount);
     }
 
     public void doRefuel(Car car, double fuelAmount) {
-        lock.lock();
-        try {
-            if (amount - fuelAmount >= 0.0) {
+        executor.execute(() -> {
+            if (amount.updateAndGet(currentAmount -> currentAmount - fuelAmount) >= 0.0) {
                 System.out.println(
-                        "Refueled " + fuelAmount + " liters petrol for " + car.getCarBrand()
+                        "Refueled " + fuelAmount + " liters petrol for \"" +
+                                car.getCarBrand() + "(working gas pump #" + Thread.currentThread().getName() + ")."
                 );
                 try {
-                    Thread.sleep(getLattency() * 1_00);
+                    Thread.sleep(getLattency() * 1_000);
                 } catch (InterruptedException e) {
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
-                amount -= fuelAmount;
             } else {
                 addAmount(fuelAmount);
-                System.out.println("Refueling no longer possible for \"" + car.getCarBrand() +
+                System.out.println("Refueling no longer possible for " + car.getCarBrand() + ". " +
                         "Current fuel balance (" + getAmount() + " liters) less than " + fuelAmount + " liters!");
             }
-        } finally {
-            lock.unlock();
-        }
+        });
     }
 
     public void shutdown() {
-        for (Thread thread : threads) {
-            if (thread != null) {
-                thread.interrupt();
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS)) {
+                System.out.println("Done!\n------\n" +
+                        "Current fuel balance at the station: " + amount.get() + " liters.");
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -57,10 +67,10 @@ public class PetrolStation {
     }
 
     public double getAmount() {
-        return amount;
+        return amount.get();
     }
 
     public void setAmount(double newAmount) {
-        this.amount = newAmount;
+        this.amount.set(newAmount);
     }
 }
