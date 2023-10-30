@@ -9,5 +9,8 @@ public class Main {
         Lesson lesson = new Lesson(1,"MySQL", new Homework(1,"Create schema", "create schema with MySQL"));
 
         lessonDAO.addLesson(lesson);
+        lessonDAO.getLessonById(1);
+        lessonDAO.getAllLessons();
+        lessonDAO.deleteLesson(1);
     }
 }
