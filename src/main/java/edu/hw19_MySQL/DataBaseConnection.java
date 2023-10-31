@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataBaseConnection {
+public class DataBaseConnection implements AutoCloseable{
     private static final String URL = "jdbc:mysql://localhost:3306/homework19";
     private static final String USER = "root";
     private static final String PASSWORD = "hillel";
@@ -25,6 +25,7 @@ public class DataBaseConnection {
     public Connection getConnection(){
         return connection;
     }
+    @Override
     public void close() throws SQLException {
         if (connection != null) {
             connection.close();

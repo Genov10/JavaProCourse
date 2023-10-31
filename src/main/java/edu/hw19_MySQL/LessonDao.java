@@ -15,17 +15,14 @@ public class LessonDao {
     public void addLesson(Lesson lesson) throws SQLException {
         Connection connection = dbConnection.getConnection();
 
-        // Add the homework to the Homework table
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Homework (name, description) VALUES (?, ?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO homework (name, description) VALUES (?, ?)");
         statement.setString(1, lesson.getHomework().getName());
         statement.setString(2, lesson.getHomework().getDescription());
         statement.execute();
 
-        // Get the generated homework ID
         int homeworkId = statement.getGeneratedKeys().getInt(1);
 
-        // Add the lesson to the Lesson table
-        statement = connection.prepareStatement("INSERT INTO Lesson (name, updatedAt, homework_id) VALUES (?, ?, ?)");
+        statement = connection.prepareStatement("INSERT INTO lesson (name, updatedAt, homework_id) VALUES (?, ?, ?)");
         statement.setString(1, lesson.getName());
         statement.setTimestamp(2, new Timestamp(lesson.getUpdatedAt().getTime()));
         statement.setInt(3, homeworkId);
@@ -38,12 +35,12 @@ public class LessonDao {
         Connection connection = dbConnection.getConnection();
 
         // Delete the lesson from the Lesson table
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Lesson WHERE id = ?");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM lesson WHERE id = ?");
         statement.setInt(1, id);
         statement.execute();
 
         // Delete the homework from the Homework table
-        statement = connection.prepareStatement("DELETE FROM Homework WHERE id = ?");
+        statement = connection.prepareStatement("DELETE FROM homework WHERE id = ?");
         statement.setInt(1, id);
         statement.execute();
 
@@ -53,7 +50,7 @@ public class LessonDao {
     public List<Lesson> getAllLessons() throws SQLException {
         Connection connection = dbConnection.getConnection();
 
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Lesson");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM lesson");
         ResultSet resultSet = statement.executeQuery();
 
         List<Lesson> lessons = new ArrayList<>();
@@ -68,7 +65,7 @@ public class LessonDao {
     public Lesson getLessonById(int id) throws SQLException {
         Connection connection = dbConnection.getConnection();
 
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Lesson WHERE id = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM lesson WHERE id = ?");
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
 
