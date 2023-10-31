@@ -4,7 +4,8 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        LessonDao lessonDAO = new LessonDao(new DataBaseConnection());
+        DataBaseConnection dbConnection = new DataBaseConnection();
+        LessonDao lessonDAO = new LessonDao(dbConnection);
 
         Lesson lesson = new Lesson(1,"MySQL", new Homework(1,"Create schema", "create schema with MySQL"));
 
