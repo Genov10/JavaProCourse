@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public abstract class FileLogger extends Logger{
+public class FileLogger extends Logger{
     private File file;
 
     public File createFile() {
@@ -24,7 +24,7 @@ public abstract class FileLogger extends Logger{
 
     @Override
     protected void log(String msg) {
-        if (file == null || file.length() >= getLoggerConfiguration().getMaxFileSize()) {
+        if (file == null || file.length() >= getFileLoggerConfiguration().getMaxSize()) {
             file = createFile();
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {

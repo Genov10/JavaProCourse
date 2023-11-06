@@ -27,7 +27,15 @@ public abstract class Logger {
     }
 
     protected String getFolder() {
-        return "./src/java/edu/hw17_WorkWithFile/" + getLoggerConfiguration().getPath();
+        return "./src/java/edu/hw17_WorkWithFile/" + getFileLoggerConfiguration().getUrl();
+    }
+
+    protected static FileLoggerConfiguration getFileLoggerConfiguration() {
+        return new FileLoggerConfiguration(
+                "./src/java/edu/hw17_WorkWithFile/" + FileLoggerConfigurationLoader.load().getString("FILE", "log"),
+                FileLoggerConfigurationLoader.load().getEnum("LEVEL", LoggerLevel.class, LoggerLevel.INFO),
+                FileLoggerConfigurationLoader.load().getInt("MAX-SIZE", 20000),
+                FileLoggerConfigurationLoader.load().getString("FORMAT",  "[%s][%s] MSG: %s"));
     }
 
     protected abstract void log(String msg);
