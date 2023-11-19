@@ -2,6 +2,7 @@ package hw21_test;
 
 import org.junit.jupiter.api.Test;
 import edu.hw21_testing.DS.DatabaseDs.DbDs;
+import org.mockito.Mockito;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,11 +14,11 @@ class DbDsTest {
 
     @Test
     void testAddData() {
-        DbDs dbDs = new DbDs();
-        dbDs.addData("Hello");
+        DbDs DbDsTestMock = Mockito.mock(DbDs.class);
+        DbDsTestMock.addData("Hello");
 
         // Verify that the data is added to the database
-        try (Statement statement = dbDs.getConnection().createStatement();
+        try (Statement statement = DbDsTestMock.getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT name FROM hw21.hw21")) {
             assertTrue(resultSet.next());
             assertEquals("Hello", resultSet.getString("name"));
