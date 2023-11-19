@@ -3,6 +3,8 @@ package hw21_test;
 import org.junit.jupiter.api.Test;
 import edu.hw21_testing.DS.DatabaseDs.DbDs;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;

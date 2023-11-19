@@ -1,6 +1,7 @@
 package edu.hw21_testing.DS;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MemoryDs implements DataStore {
@@ -18,5 +19,9 @@ public class MemoryDs implements DataStore {
     @Override
     public void delete(int index) {
         this.data.remove(index);
+    }
+
+    public List<String> getData() {
+        return data;
     }
 }

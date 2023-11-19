@@ -36,4 +36,12 @@ public class DbDs implements DataStore {
     public void delete(int index) {
         dbDAO.delete(index);
     }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 }
